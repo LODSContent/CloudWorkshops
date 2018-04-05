@@ -18,7 +18,7 @@
             "type": "String"
         },
         "storageAccount_name": {
-            "defaultValue": "fabmedicaldiag286",
+            "defaultValue": "fabmedicaldiag",
             "type": "String"
         },
         "nsg_name": {
