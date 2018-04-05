@@ -44,7 +44,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "name": "[parameters('VM_Name')]",
             "apiVersion": "2017-03-30",
-            "location": "resourcegroup().location",
+            "location": "[resourcegroup().location]",
             "scale": null,
             "properties": {
                 "hardwareProfile": {
@@ -102,7 +102,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "name": "[parameters('networkInterfaces_name')]",
             "apiVersion": "2018-01-01",
-            "location": "resourcegroup().location",
+            "location": "[resourcegroup().location]",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -152,7 +152,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "name": "[parameters('nsg_name')]",
             "apiVersion": "2018-01-01",
-            "location": "resourcegroup().location",
+            "location": "[resourcegroup().location]",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -312,7 +312,7 @@
             },
             "name": "[parameters('publicIPAddresses_name')]",
             "apiVersion": "2018-01-01",
-            "location": "resourcegroup().location",
+            "location": "[resourcegroup().location]",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -329,7 +329,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "name": "[parameters('virtualNetworks_name')]",
             "apiVersion": "2018-01-01",
-            "location": "resourcegroup().location",
+            "location": "[resourcegroup().location]",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -365,7 +365,7 @@
             "kind": "Storage",
             "name": "[parameters('storageAccount_name')]",
             "apiVersion": "2017-10-01",
-            "location": "resourcegroup().location",
+            "location": "[resourcegroup().location]",
             "tags": {},
             "scale": null,
             "properties": {
