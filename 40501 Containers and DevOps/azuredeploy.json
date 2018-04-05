@@ -2,28 +2,27 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "virtualMachines_fabmedical_6362524_name": {
-            "defaultValue": "fabmedical-6362524",
+        "VM_Name": {
             "type": "String"
         },
-        "virtualNetworks_fabmedical_testrg_vnet_name": {
-            "defaultValue": "fabmedical-testrg-vnet",
+        "virtualNetworks_name": {
+            "defaultValue": "fabmedical-vnet",
             "type": "String"
         },
-        "networkInterfaces_fabmedical_6362524212_name": {
-            "defaultValue": "fabmedical-6362524212",
+        "networkInterfaces_name": {
+            "defaultValue": "fabmedical-nic",
             "type": "String"
         },
-        "publicIPAddresses_fabmedical_6362524_ip_name": {
-            "defaultValue": "fabmedical-6362524-ip",
+        "publicIPAddresses_name": {
+            "defaultValue": "fabmedical-ip",
             "type": "String"
         },
-        "storageAccounts_fabmedicaltestrgdiag286_name": {
-            "defaultValue": "fabmedicaltestrgdiag286",
+        "storageAccount_name": {
+            "defaultValue": "fabmedicaldiag286",
             "type": "String"
         },
-        "networkSecurityGroups_fabmedical_6362524_nsg_name": {
-            "defaultValue": "fabmedical-6362524-nsg",
+        "nsg_name": {
+            "defaultValue": "fabmedical-nsg",
             "type": "String"
         },
         "subnets_default_name": {
@@ -32,10 +31,6 @@
         },
         "securityRules_default_allow_ssh_name": {
             "defaultValue": "default-allow-ssh",
-            "type": "String"
-        },
-        "virtualMachines_fabmedical_6362524_id": {
-            "defaultValue": "/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Compute/disks/fabmedical-6362524_OsDisk_1_6050d1b4f945474d9510a858e220b062",
             "type": "String"
         },
         "SSH_Public_Key": {
@@ -47,9 +42,9 @@
         {
             "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Compute/virtualMachines/fabmedical-6362524'.",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[parameters('virtualMachines_fabmedical_6362524_name')]",
+            "name": "[parameters('VM_Name')]",
             "apiVersion": "2017-03-30",
-            "location": "eastus",
+            "location": "resourcegroup().location",
             "scale": null,
             "properties": {
                 "hardwareProfile": {
@@ -63,18 +58,12 @@
                         "version": "latest"
                     },
                     "osDisk": {
-                        "osType": "Linux",
-                        "name": "[concat(parameters('virtualMachines_fabmedical_6362524_name'),'_OsDisk_1_6050d1b4f945474d9510a858e220b062')]",
-                        "createOption": "FromImage",
-                        "caching": "ReadWrite",
-                        "managedDisk": {
-                            "id": "[parameters('virtualMachines_fabmedical_6362524_id')]"
-                        }
+                        "createOption": "FromImage"
                     },
                     "dataDisks": []
                 },
                 "osProfile": {
-                    "computerName": "[parameters('virtualMachines_fabmedical_6362524_name')]",
+                    "computerName": "[parameters('VM_Name')]",
                     "adminUsername": "adminfabmedical",
                     "linuxConfiguration": {
                         "disablePasswordAuthentication": true,
@@ -92,28 +81,28 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_fabmedical_6362524212_name'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_name'))]"
                         }
                     ]
                 },
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
                         "enabled": true,
-                        "storageUri": "[concat('https', '://', parameters('storageAccounts_fabmedicaltestrgdiag286_name'), '.blob.core.windows.net', '/')]"
+                        "storageUri": "[concat('https', '://', parameters('storageAccount_name'), '.blob.core.windows.net', '/')]"
                     }
                 }
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_fabmedical_6362524212_name'))]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_fabmedicaltestrgdiag286_name'))]"
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccount_name'))]"
             ]
         },
         {
             "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/networkInterfaces/fabmedical-6362524212'.",
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[parameters('networkInterfaces_fabmedical_6362524212_name')]",
+            "name": "[parameters('networkInterfaces_name')]",
             "apiVersion": "2018-01-01",
-            "location": "eastus",
+            "location": "resourcegroup().location",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -127,10 +116,10 @@
                             "privateIPAddress": "10.0.0.4",
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_fabmedical_6362524_ip_name'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_name'))]"
                             },
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_fabmedical_testrg_vnet_name'), parameters('subnets_default_name'))]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_name'), parameters('subnets_default_name'))]"
                             },
                             "primary": true,
                             "privateIPAddressVersion": "IPv4"
@@ -144,26 +133,26 @@
                 "enableAcceleratedNetworking": false,
                 "enableIPForwarding": false,
                 "networkSecurityGroup": {
-                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_fabmedical_6362524_nsg_name'))]"
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsg_name'))]"
                 },
                 "primary": true,
                 "virtualMachine": {
-                    "id": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_fabmedical_6362524_name'))]"
+                    "id": "[resourceId('Microsoft.Compute/virtualMachines', parameters('VM_Name'))]"
                 }
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_fabmedical_6362524_ip_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_fabmedical_testrg_vnet_name'), parameters('subnets_default_name'))]",
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_fabmedical_6362524_nsg_name'))]",
-                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_fabmedical_6362524_name'))]"
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_name'), parameters('subnets_default_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsg_name'))]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('VM_Name'))]"
             ]
         },
         {
             "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/networkSecurityGroups/fabmedical-6362524-nsg'.",
             "type": "Microsoft.Network/networkSecurityGroups",
-            "name": "[parameters('networkSecurityGroups_fabmedical_6362524_nsg_name')]",
+            "name": "[parameters('nsg_name')]",
             "apiVersion": "2018-01-01",
-            "location": "eastus",
+            "location": "resourcegroup().location",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -321,9 +310,9 @@
                 "name": "Basic",
                 "tier": "Regional"
             },
-            "name": "[parameters('publicIPAddresses_fabmedical_6362524_ip_name')]",
+            "name": "[parameters('publicIPAddresses_name')]",
             "apiVersion": "2018-01-01",
-            "location": "eastus",
+            "location": "resourcegroup().location",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -338,9 +327,9 @@
         {
             "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/virtualNetworks/fabmedical-testrg-vnet'.",
             "type": "Microsoft.Network/virtualNetworks",
-            "name": "[parameters('virtualNetworks_fabmedical_testrg_vnet_name')]",
+            "name": "[parameters('virtualNetworks_name')]",
             "apiVersion": "2018-01-01",
-            "location": "eastus",
+            "location": "resourcegroup().location",
             "scale": null,
             "properties": {
                 "provisioningState": "Succeeded",
@@ -374,9 +363,9 @@
                 "tier": "Standard"
             },
             "kind": "Storage",
-            "name": "[parameters('storageAccounts_fabmedicaltestrgdiag286_name')]",
+            "name": "[parameters('storageAccount_name')]",
             "apiVersion": "2017-10-01",
-            "location": "eastus",
+            "location": "resourcegroup().location",
             "tags": {},
             "scale": null,
             "properties": {
@@ -404,7 +393,7 @@
         {
             "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/networkSecurityGroups/fabmedical-6362524-nsg/securityRules/default-allow-ssh'.",
             "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-            "name": "[concat(parameters('networkSecurityGroups_fabmedical_6362524_nsg_name'), '/', parameters('securityRules_default_allow_ssh_name'))]",
+            "name": "[concat(parameters('nsg_name'), '/', parameters('securityRules_default_allow_ssh_name'))]",
             "apiVersion": "2018-01-01",
             "scale": null,
             "properties": {
@@ -423,13 +412,13 @@
                 "destinationAddressPrefixes": []
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_fabmedical_6362524_nsg_name'))]"
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsg_name'))]"
             ]
         },
         {
             "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/virtualNetworks/fabmedical-testrg-vnet/subnets/default'.",
             "type": "Microsoft.Network/virtualNetworks/subnets",
-            "name": "[concat(parameters('virtualNetworks_fabmedical_testrg_vnet_name'), '/', parameters('subnets_default_name'))]",
+            "name": "[concat(parameters('virtualNetworks_name'), '/', parameters('subnets_default_name'))]",
             "apiVersion": "2018-01-01",
             "scale": null,
             "properties": {
@@ -437,7 +426,7 @@
                 "addressPrefix": "10.0.0.0/24"
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_fabmedical_testrg_vnet_name'))]"
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_name'))]"
             ]
         }
     ]
