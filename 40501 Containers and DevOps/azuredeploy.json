@@ -1,0 +1,441 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_fabmedical_6362524_name": {
+            "defaultValue": "fabmedical-6362524",
+            "type": "String"
+        },
+        "virtualNetworks_fabmedical_testrg_vnet_name": {
+            "defaultValue": "fabmedical-testrg-vnet",
+            "type": "String"
+        },
+        "networkInterfaces_fabmedical_6362524212_name": {
+            "defaultValue": "fabmedical-6362524212",
+            "type": "String"
+        },
+        "publicIPAddresses_fabmedical_6362524_ip_name": {
+            "defaultValue": "fabmedical-6362524-ip",
+            "type": "String"
+        },
+        "storageAccounts_fabmedicaltestrgdiag286_name": {
+            "defaultValue": "fabmedicaltestrgdiag286",
+            "type": "String"
+        },
+        "networkSecurityGroups_fabmedical_6362524_nsg_name": {
+            "defaultValue": "fabmedical-6362524-nsg",
+            "type": "String"
+        },
+        "subnets_default_name": {
+            "defaultValue": "default",
+            "type": "String"
+        },
+        "securityRules_default_allow_ssh_name": {
+            "defaultValue": "default-allow-ssh",
+            "type": "String"
+        },
+        "virtualMachines_fabmedical_6362524_id": {
+            "defaultValue": "/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Compute/disks/fabmedical-6362524_OsDisk_1_6050d1b4f945474d9510a858e220b062",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Compute/virtualMachines/fabmedical-6362524'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_fabmedical_6362524_name')]",
+            "apiVersion": "2017-03-30",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_D2s_v3"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "16.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[concat(parameters('virtualMachines_fabmedical_6362524_name'),'_OsDisk_1_6050d1b4f945474d9510a858e220b062')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "id": "[parameters('virtualMachines_fabmedical_6362524_id')]"
+                        }
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_fabmedical_6362524_name')]",
+                    "adminUsername": "adminfabmedical",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "path": "/home/adminfabmedical/.ssh/authorized_keys",
+                                    "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDOP/8/j00tsGMAne0oskXbhIjCgtHrmtijJimBiQWXCqBbheRbnMhOt31b+FdtMyii3K9lLxdE/9f5FosoyuM2GX6ha8nBjzoUpBrzmuGqOYxpM925bNHiQ5u8sYEIzF4ooLuZdclcDvoVSvSqD7o/m+tlGNDQ2NHfnDqdVhrml3HVNt8A1gyVexZ+SlY55BYXkvlLkyq9BwTPKp7f0nZi7RoikQZ80uaR1YrKnFnJTRR6MRfwXuM8/iUREt4chcuLvw8KC34wwbEqZuGbQsywyJBozVKr/erCc+sBBEphLiJHtwmUf9zVBjdCKH4twcyXwpzIX4eQEDpAx3O4uNFn"
+                                }
+                            ]
+                        }
+                    },
+                    "secrets": []
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_fabmedical_6362524212_name'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[concat('https', '://', parameters('storageAccounts_fabmedicaltestrgdiag286_name'), '.blob.core.windows.net', '/')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_fabmedical_6362524212_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_fabmedicaltestrgdiag286_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/networkInterfaces/fabmedical-6362524212'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_fabmedical_6362524212_name')]",
+            "apiVersion": "2018-01-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "0e1c9b35-a412-4524-83e0-d1a0d622e8eb",
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "etag": "W/\"78c06bd8-3cc2-492b-9852-633dffe1fc55\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "privateIPAddress": "10.0.0.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_fabmedical_6362524_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_fabmedical_testrg_vnet_name'), parameters('subnets_default_name'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": []
+                },
+                "enableAcceleratedNetworking": false,
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_fabmedical_6362524_nsg_name'))]"
+                },
+                "primary": true,
+                "virtualMachine": {
+                    "id": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_fabmedical_6362524_name'))]"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_fabmedical_6362524_ip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_fabmedical_testrg_vnet_name'), parameters('subnets_default_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_fabmedical_6362524_nsg_name'))]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_fabmedical_6362524_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/networkSecurityGroups/fabmedical-6362524-nsg'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_fabmedical_6362524_nsg_name')]",
+            "apiVersion": "2018-01-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "0301d221-0773-4620-aa04-7cd377bfa548",
+                "securityRules": [
+                    {
+                        "name": "default-allow-ssh",
+                        "etag": "W/\"32a9ef89-dd00-4262-8dfe-694d69453ce1\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ],
+                "defaultSecurityRules": [
+                    {
+                        "name": "AllowVnetInBound",
+                        "etag": "W/\"32a9ef89-dd00-4262-8dfe-694d69453ce1\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow inbound traffic from all VMs in VNET",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "VirtualNetwork",
+                            "destinationAddressPrefix": "VirtualNetwork",
+                            "access": "Allow",
+                            "priority": 65000,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowAzureLoadBalancerInBound",
+                        "etag": "W/\"32a9ef89-dd00-4262-8dfe-694d69453ce1\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow inbound traffic from azure load balancer",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "AzureLoadBalancer",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 65001,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "DenyAllInBound",
+                        "etag": "W/\"32a9ef89-dd00-4262-8dfe-694d69453ce1\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Deny all inbound traffic",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 65500,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowVnetOutBound",
+                        "etag": "W/\"32a9ef89-dd00-4262-8dfe-694d69453ce1\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow outbound traffic from all VMs to all VMs in VNET",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "VirtualNetwork",
+                            "destinationAddressPrefix": "VirtualNetwork",
+                            "access": "Allow",
+                            "priority": 65000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowInternetOutBound",
+                        "etag": "W/\"32a9ef89-dd00-4262-8dfe-694d69453ce1\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Allow outbound traffic from all VMs to Internet",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Allow",
+                            "priority": 65001,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "DenyAllOutBound",
+                        "etag": "W/\"32a9ef89-dd00-4262-8dfe-694d69453ce1\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "description": "Deny all outbound traffic",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 65500,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/publicIPAddresses/fabmedical-6362524-ip'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "sku": {
+                "name": "Basic",
+                "tier": "Regional"
+            },
+            "name": "[parameters('publicIPAddresses_fabmedical_6362524_ip_name')]",
+            "apiVersion": "2018-01-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "79cbf474-2560-4051-830f-ba192010476f",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/virtualNetworks/fabmedical-testrg-vnet'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_fabmedical_testrg_vnet_name')]",
+            "apiVersion": "2018-01-01",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "resourceGuid": "277d4894-c138-4543-836b-79d3ab17b3fe",
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "default",
+                        "etag": "W/\"6893f3b8-7208-41c3-8e93-afc7aa598a41\"",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "addressPrefix": "10.0.0.0/24"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Storage/storageAccounts/fabmedicaltestrgdiag286'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_fabmedicaltestrgdiag286_name')]",
+            "apiVersion": "2017-10-01",
+            "location": "eastus",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": false,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/networkSecurityGroups/fabmedical-6362524-nsg/securityRules/default-allow-ssh'.",
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "name": "[concat(parameters('networkSecurityGroups_fabmedical_6362524_nsg_name'), '/', parameters('securityRules_default_allow_ssh_name'))]",
+            "apiVersion": "2018-01-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "protocol": "TCP",
+                "sourcePortRange": "*",
+                "destinationPortRange": "22",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 1000,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_fabmedical_6362524_nsg_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Network/virtualNetworks/fabmedical-testrg-vnet/subnets/default'.",
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(parameters('virtualNetworks_fabmedical_testrg_vnet_name'), '/', parameters('subnets_default_name'))]",
+            "apiVersion": "2018-01-01",
+            "scale": null,
+            "properties": {
+                "provisioningState": "Succeeded",
+                "addressPrefix": "10.0.0.0/24"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_fabmedical_testrg_vnet_name'))]"
+            ]
+        }
+    ]
+}
