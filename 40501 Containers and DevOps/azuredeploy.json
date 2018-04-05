@@ -37,6 +37,9 @@
         "virtualMachines_fabmedical_6362524_id": {
             "defaultValue": "/subscriptions/5a2628d8-83e6-4e03-a21e-81ec51fb14cf/resourceGroups/fabmedical-testrg/providers/Microsoft.Compute/disks/fabmedical-6362524_OsDisk_1_6050d1b4f945474d9510a858e220b062",
             "type": "String"
+        },
+        "SSH_Public_Key": {
+            "type": "string"
         }
     },
     "variables": {},
@@ -79,7 +82,7 @@
                             "publicKeys": [
                                 {
                                     "path": "/home/adminfabmedical/.ssh/authorized_keys",
-                                    "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDOP/8/j00tsGMAne0oskXbhIjCgtHrmtijJimBiQWXCqBbheRbnMhOt31b+FdtMyii3K9lLxdE/9f5FosoyuM2GX6ha8nBjzoUpBrzmuGqOYxpM925bNHiQ5u8sYEIzF4ooLuZdclcDvoVSvSqD7o/m+tlGNDQ2NHfnDqdVhrml3HVNt8A1gyVexZ+SlY55BYXkvlLkyq9BwTPKp7f0nZi7RoikQZ80uaR1YrKnFnJTRR6MRfwXuM8/iUREt4chcuLvw8KC34wwbEqZuGbQsywyJBozVKr/erCc+sBBEphLiJHtwmUf9zVBjdCKH4twcyXwpzIX4eQEDpAx3O4uNFn"
+                                    "keyData": "[parameters('SSH_Public_Key')]"
                                 }
                             ]
                         }
