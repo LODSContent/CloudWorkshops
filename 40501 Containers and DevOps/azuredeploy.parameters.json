@@ -28,6 +28,10 @@
         },
         "virtualMachines_fabmedical_6362524_id": {
             "value": null
+        },
+        },
+        "SSH_Public_Key": {
+            "value": null
         }
     }
 }
