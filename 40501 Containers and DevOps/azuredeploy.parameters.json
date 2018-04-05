@@ -2,22 +2,22 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "virtualMachines_fabmedical_6362524_name": {
+        "VM_Name": {
             "value": null
         },
-        "virtualNetworks_fabmedical_testrg_vnet_name": {
+        "virtualNetworks_name": {
             "value": null
         },
-        "networkInterfaces_fabmedical_6362524212_name": {
+        "networkInterfaces_name": {
             "value": null
         },
-        "publicIPAddresses_fabmedical_6362524_ip_name": {
+        "publicIPAddresses_name": {
             "value": null
         },
-        "storageAccounts_fabmedicaltestrgdiag286_name": {
+        "storageAccount_name": {
             "value": null
         },
-        "networkSecurityGroups_fabmedical_6362524_nsg_name": {
+        "nsg_name": {
             "value": null
         },
         "subnets_default_name": {
@@ -25,10 +25,6 @@
         },
         "securityRules_default_allow_ssh_name": {
             "value": null
-        },
-        "virtualMachines_fabmedical_6362524_id": {
-            "value": null
-        },
         },
         "SSH_Public_Key": {
             "value": null
