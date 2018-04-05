@@ -143,8 +143,7 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_name'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_name'), parameters('subnets_default_name'))]",
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsg_name'))]",
-                "[resourceId('Microsoft.Compute/virtualMachines', parameters('VM_Name'))]"
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsg_name'))]"
             ]
         },
         {
